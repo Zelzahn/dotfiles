@@ -1,0 +1,6 @@
+swipe:
+  3:
+    up:
+      command: "xdotool key ctrl+t"
+    down:
+      command: "xdotool key ctrl+w"
