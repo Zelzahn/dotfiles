@@ -19,7 +19,7 @@ change_percent=125
 
 # Don't start a new transition if the previous one isn't done yet
 pgrep -u $UID -x xbacklight >/dev/null && exit
-
+echo "test"
 # Calculate new target brightness
 current_brightness=$(xbacklight -get | grep -o "^.*\." | grep -o "[0-9]*")
 case $1 in
@@ -32,7 +32,7 @@ case $1 in
                 [ $target -ne $current_brightness ] || target=$((target - 1))
                 ;;
 esac
-
+echo "2"
 # Boundaries: can't go higher than 100% or lower than 1%
 [ $target -le 1   ] && target=1
 [ $target -ge 100 ] && target=100

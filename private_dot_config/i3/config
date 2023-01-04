@@ -11,7 +11,6 @@
 # Windows
 set $mod Mod4
 set $mod2 Shift
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:monospace 8
@@ -39,25 +38,25 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 
 # Picom (compositor)
-exec --no-startup-id picom -cb --experimental-backends --config .config/picom/picom.conf
+exec --no-startup-id picom -cb --config ~/.config/picom/picom.conf
 
 # Dunst (notifications)
 exec --no-startup-id dunst
 
 # Fusuma (touchpad gestures)
-exec --no-startup-id fusuma -d
+exec --no-startup-id doas fusuma -d
 
 # Unclutter (automatically hide the mouse on inactivity)
 exec --no-startup-id unclutter -b
 
-# Darkman (automatically switch to light/dark mode)
-exec --no-startup-id darkman
-
 # Set the wallpaper
-exec_always --no-startup-id "feh --bg-scale $HOME/.config/i3/background.jpg"
+exec_always --no-startup-id "feh --bg-scale $HOME/.config/i3/bg_river.jpg"
 
 # Lock the screen
-bindsym $mod+$mod2+d exec .config/i3/scripts/lock.sh
+bindsym $mod+$mod2+w exec .config/i3/scripts/lock.sh
+
+# Open the file explorer
+bindsym $mod+$mod2+d exec kitty -e "ranger"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -66,23 +65,38 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+# Sreen brightness controls
+## increase screen brightness
+# bindsym XF86MonBrightnessUp exec ".config/i3/scripts/changebacklight.sh up"
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+## decrease screen brightness
+# bindsym XF86MonBrightnessDown exec ".config/i3/scripts/changebacklight.sh down"
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+
+
+# We don't want to show to constantly show the status bar
+bindsym $mod+b bar mode toggle
+
+# Flameshot (screenshot utility)
+bindsym Print exec flameshot gui
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
-# kill focused window
-bindsym $mod+$mod2+a kill
+bindsym $mod+Return exec kitty # i3-sensible-terminal
 
 # start rofi (program launcher)
 bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme $HOME/.config/rofi/config.rasi
 
+# kill the window
+bindsym $mod+$mod2+q kill
+
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+m focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -91,10 +105,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+$mod2+j move left
-bindsym $mod+$mod2+k move down
-bindsym $mod+$mod2+l move up
-bindsym $mod+$mod2+m move right
+bindsym $mod+$mod2+h move left
+bindsym $mod+$mod2+j move down
+bindsym $mod+$mod2+k move up
+bindsym $mod+$mod2+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+$mod2+Left move left
@@ -103,7 +117,7 @@ bindsym $mod+$mod2+Up move up
 bindsym $mod+$mod2+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+m split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -140,6 +154,10 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+
+# workspace mods (move to the next or prev open workspace on current display)
+bindsym --whole-window $mod+Tab workspace next_on_output
+bindsym --whole-window $mod+Shift+Tab workspace prev_on_output
 
 # switch to workspace
 bindsym $mod+ampersand workspace number $ws1
@@ -180,10 +198,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym m resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+ 	bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -212,10 +230,12 @@ hide_edge_borders smart
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Blueman-manager"] floating enable
 for_window [class="Arandr"] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
         status_command i3status
+	mode	hide
 }
