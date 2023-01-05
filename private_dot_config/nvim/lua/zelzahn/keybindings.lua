@@ -9,7 +9,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Telescope
-vim.keymap.set('n', '<leader>ff', ':Telescope git_files<CR>')
+vim.keymap.set('n', '<leader>ff', '<cmd>Telescope git_files<CR>')
 
 -- Ranger
 -- Old
@@ -17,6 +17,6 @@ vim.keymap.set('n', '<leader>ff', ':Telescope git_files<CR>')
 -- map <leader>f :Ranger<CR>
 -- map <leader>ft :RangerNewTab<CR>
 -- New
-vim.keymap.set('n', '<leader>f', ':RnvimrToggle<CR>')
+vim.keymap.set('n', '<leader>f', '<cmd>RnvimrToggle<CR>')
 
 
