@@ -74,8 +74,7 @@ return require('packer').startup(function(use)
 		'neovim/nvim-lspconfig',
         config = function()
           require("zelzahn.plugin.lspconfig")
-        end,
-		after = { "cmp-nvim-lsp" }
+        end
 	}
 
 	-- CMP
@@ -86,22 +85,21 @@ return require('packer').startup(function(use)
         end,
     })
     use({ "hrsh7th/cmp-nvim-lsp", ft = lspfiletypes })
-    use({ "hrsh7th/cmp-buffer", after = "nvim-cmp" })
+    use({ "hrsh7th/cmp-buffer" })
     -- use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
     -- use({ "hrsh7th/cmp-cmdline", after = "nvim-cmp" })
-    use({ "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" })
-    use({ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" })
+    use({ "hrsh7th/cmp-nvim-lsp-signature-help" })
+    use({ "saadparwaiz1/cmp_luasnip" })
     use("onsails/lspkind-nvim")	
 
 	-- Snippets
 	use({
-        "L3MON4D3/LuaSnip",
-        after = "friendly-snippets" -- ,
+        "L3MON4D3/LuaSnip"
         -- config = function()
         --     require("lars-vc.plugins.luasnip")
         -- end,
     })
-    use({ "rafamadriz/friendly-snippets", after = "nvim-cmp" })	
+    use({ "rafamadriz/friendly-snippets" })	
 	
 	use {
 		"lewis6991/hover.nvim",
