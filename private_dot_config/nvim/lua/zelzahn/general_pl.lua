@@ -11,6 +11,3 @@ vim.g.vimtex_view_method = 'zathura'
 
 vim.g.python3_host_prog = '~/.asdf/installs/python/3.10.9/bin/python'
 
-require'lspconfig'.elixirls.setup{
-    cmd = { "/home/zelzahn/.config/elixir-ls/language_server.sh" };
-}
