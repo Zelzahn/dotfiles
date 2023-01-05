@@ -75,11 +75,8 @@ time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   LuaSnip = {
-    after = { "cmp_luasnip" },
-    load_after = {},
     loaded = true,
-    needs_bufread = true,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/LuaSnip",
+    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
   catppuccin = {
@@ -88,15 +85,11 @@ _G.packer_plugins = {
     url = "https://github.com/catppuccin/nvim"
   },
   ["cmp-buffer"] = {
-    after_files = { "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
-    load_after = {},
     loaded = true,
-    needs_bufread = false,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/cmp-buffer",
+    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
   },
   ["cmp-nvim-lsp"] = {
-    after = { "nvim-lspconfig" },
     after_files = { "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua" },
     loaded = false,
     needs_bufread = false,
@@ -105,19 +98,13 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["cmp-nvim-lsp-signature-help"] = {
-    after_files = { "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp-signature-help/after/plugin/cmp_nvim_lsp_signature_help.lua" },
-    load_after = {},
     loaded = true,
-    needs_bufread = false,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp-signature-help",
+    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
   },
   cmp_luasnip = {
-    after_files = { "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua" },
-    load_after = {},
     loaded = true,
-    needs_bufread = false,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/cmp_luasnip",
+    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   fd = {
@@ -126,11 +113,8 @@ _G.packer_plugins = {
     url = "https://github.com/sharkdp/fd"
   },
   ["friendly-snippets"] = {
-    after = { "LuaSnip" },
-    load_after = {},
     loaded = true,
-    needs_bufread = false,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/friendly-snippets",
+    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
   ["goyo.vim"] = {
@@ -159,21 +143,15 @@ _G.packer_plugins = {
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
   ["nvim-cmp"] = {
-    after = { "friendly-snippets", "cmp-buffer", "cmp-nvim-lsp-signature-help" },
     config = { "\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23zelzahn.plugin.cmp\frequire\0" },
     loaded = true,
-    only_config = true,
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     config = { "\27LJ\2\n8\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\29zelzahn.plugin.lspconfig\frequire\0" },
-    load_after = {
-      ["cmp-nvim-lsp"] = true
-    },
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/opt/nvim-lspconfig",
+    loaded = true,
+    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-treesitter"] = {
@@ -264,27 +242,23 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\29zelzahn.plugin.lspconfig\frequire\0", "config", "nvim-lspconfig")
+time([[Config for nvim-lspconfig]], false)
 -- Config for: nvim-cmp
 time([[Config for nvim-cmp]], true)
 try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23zelzahn.plugin.cmp\frequire\0", "config", "nvim-cmp")
 time([[Config for nvim-cmp]], false)
--- Load plugins in order defined by `after`
-time([[Sequenced loading]], true)
-vim.cmd [[ packadd cmp-nvim-lsp-signature-help ]]
-vim.cmd [[ packadd friendly-snippets ]]
-vim.cmd [[ packadd LuaSnip ]]
-vim.cmd [[ packadd cmp_luasnip ]]
-vim.cmd [[ packadd cmp-buffer ]]
-time([[Sequenced loading]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
 vim.cmd [[au FileType rust ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "rust" }, _G.packer_plugins)]]
 vim.cmd [[au FileType python ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "python" }, _G.packer_plugins)]]
-vim.cmd [[au FileType lua ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "lua" }, _G.packer_plugins)]]
-vim.cmd [[au FileType c ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "c" }, _G.packer_plugins)]]
 vim.cmd [[au FileType elixir ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "elixir" }, _G.packer_plugins)]]
+vim.cmd [[au FileType c ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "c" }, _G.packer_plugins)]]
+vim.cmd [[au FileType lua ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "lua" }, _G.packer_plugins)]]
 vim.cmd [[au FileType cpp ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "cpp" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
