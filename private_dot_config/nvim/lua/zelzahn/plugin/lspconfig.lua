@@ -1,59 +1,69 @@
--- local function on_attach(clietn, bufnr)
---     local bufopts = { noremap = true, silent = true, buffer = bufnr }
---     -- Show hover info
---     vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
---     -- Jump to definition
---     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
---     -- Jump to references
---     vim.keymap.set('n', 'gR', vim.lsp.buf.references, bufopts)
--- end
--- 
--- require'lspconfig'.elixirls.setup{
---     cmd = { "/home/zelzahn/.config/elixir-ls/language_server.sh" };
---     on_attach = on_attach;
--- }
+local function on_attach(client, buffer)
+    local keymap_opts = { buffer = buffer }
+    -- Show hover info
+    vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
+    -- Jump to definition
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    -- Jump to references
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 
-local elixir = require("elixir")
-local elixirls = require("elixir.elixirls")
+    -- Code navigation and shortcuts
+    vim.keymap.set("n", "gD", vim.lsp.buf.implementation, keymap_opts)
+    vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, keymap_opts)
+    vim.keymap.set("n", "1gD", vim.lsp.buf.type_definition, keymap_opts)
+    vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, keymap_opts)
+    vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, keymap_opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
+    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
 
-elixir.setup {
-  credo = {
-    -- port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`
-    -- cmd = "path/to/credo-language-server", -- path to the executable. mutually exclusive with `port`
-    version = "0.1.3", -- version of credo-language-server to install and use. defaults to 0.0.5
-    on_attach = function(client, bufnr)
-      -- custom keybinds
-    end
-  },
-  elixirls = {
-    -- specify a repository and branch
-    -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
-    -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
-    -- tag = "v0.14.6", -- defaults to nil, mutually exclusive with the `branch` option
+    -- Show diagnostic popup on cursor hover
+    local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+    vim.api.nvim_create_autocmd("CursorHold", {
+      callback = function()
+        vim.diagnostic.open_float(nil, { focusable = false })
+      end,
+      group = diag_float_grp,
+    })
 
-    -- alternatively, point to an existing elixir-ls installation (optional)
-    -- not currently supported by elixirls, but can be a table if you wish to pass other args `{"path/to/elixirls", "--foo"}`
-    -- cmd = "/home/zelzahn/.config/elixir-ls/language_server.sh",
+    -- Goto previous/next diagnostic warning/error
+    vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
+    vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
+end
 
-    -- default settings, use the `settings` function to override settings
-    settings = elixirls.settings {
-      dialyzerEnabled = true,
-      fetchDeps = false,
-      enableTestLenses = false,
-      suggestSpecs = false,
+-- Configure LSP through rust-tools.nvim plugin.
+-- rust-tools will configure and enable certain LSP features for us.
+-- See https://github.com/simrat39/rust-tools.nvim#configuration
+local opts = {
+  tools = {
+    runnables = {
+      use_telescope = true,
     },
-    on_attach = function(client, bufnr)
-      local bufopts = { noremap = true, silent = true, buffer = bufnr }
-      -- Show hover info
-      vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
-      -- Jump to definition
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-      -- Jump to references
-      vim.keymap.set('n', 'gR', vim.lsp.buf.references, bufopts)
-      vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", bufopts)
-      vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", bufopts)
-      vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", bufopts)
-    end
-  }
+    inlay_hints = {
+      auto = true,
+      show_parameter_hints = false,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+    },
+  },
+
+  -- all the opts to send to nvim-lspconfig
+  -- these override the defaults set by rust-tools.nvim
+  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+  server = {
+    -- on_attach is a callback called when the language server attachs to the buffer
+    on_attach = on_attach,
+    settings = {
+      -- to enable rust-analyzer settings visit:
+      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+      ["rust-analyzer"] = {
+        -- enable clippy on save
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  },
 }
+
+require("rust-tools").setup(opts)
 

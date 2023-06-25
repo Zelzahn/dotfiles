@@ -30,6 +30,7 @@ local small_mapping = {
 }
 
 local small_format = {
+	fields = {'menu', 'abbr', 'kind'},
 	format = lspkind.cmp_format({
 		mode = "symbol_text",
 		menu = {
@@ -37,6 +38,7 @@ local small_format = {
 			nvim_lsp = "[LSP]",
 			path = "[Path]",
 			luasnip = "[LuaSnip]",
+			vsnip = "[VSnip]",
 			nvim_lua = "[Lua]",
 		},
 	}),
@@ -46,15 +48,15 @@ cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-			require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+			-- require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
 			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
 			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 		end,
 	},
 	window = {
-		-- completion = cmp.config.window.bordered(),
-		-- documentation = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -84,15 +86,16 @@ cmp.setup({
 		end),
 	}),
 	sources = cmp.config.sources({
-		{ name = "nvim_lua" },
-		{ name = "nvim_lsp" },
-		{ name = "nvim_lsp_signature_help" },
-		-- { name = "path" },
-		-- { name = 'vsnip' }, -- For vsnip users.
-		{ name = "luasnip" }, -- For luasnip users.
+		{ name = 'path' },                              -- file paths
+		{ name = 'nvim_lsp', keyword_length = 3 },      -- from language server
+    	{ name = 'nvim_lsp_signature_help'},            -- display function signatures with current parameter emphasized
+    	{ name = 'nvim_lua', keyword_length = 2},       -- complete neovim's Lua runtime API such vim.lsp.*
+    	{ name = 'buffer', keyword_length = 2 },        -- source current buffer
+    	{ name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip 
+    	{ name = 'calc'},                               -- source for math calculationsignature_help" },
+		-- { name = "luasnip" }, -- For luasnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
 		-- { name = 'snippy' }, -- For snippy users.
-		{ name = "buffer", keyword_length = 4 },
 	}),
 	formatting = small_format,
 	experimental = {
@@ -119,4 +122,13 @@ cmp.setup.cmdline(":", {
 	}),
 	formatting = small_format,
 })
+
+-- have a fixed column for the diagnostics to appear in
+-- this removes the jitter when warnings/errors flow in
+vim.wo.signcolumn = "yes"
+
+-- " Set updatetime for CursorHold
+-- " 300ms of no cursor movement to trigger CursorHold
+-- set updatetime=300
+vim.opt.updatetime = 100
 

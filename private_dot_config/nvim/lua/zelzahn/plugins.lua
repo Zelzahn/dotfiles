@@ -11,7 +11,6 @@ local ensure_packer = function()
 end
 
 local packer_bootstrap = ensure_packer()
-local lspfiletypes = { "c", "cpp", "rust", "lua", "python", "elixir" }
 
 return require('packer').startup(function(use)
 	-- Packer can manage itself
@@ -25,6 +24,14 @@ return require('packer').startup(function(use)
   		"neovim/nvim-lspconfig",
     	run = ":MasonUpdate" -- :MasonUpdate updates registry contents
 	}
+	-- Visualize lsp progress
+	use({
+	  "j-hui/fidget.nvim",
+	  tag="legacy",
+	  config = function()
+	    require("fidget").setup()
+	  end
+	})
 
 	-- Fancy notifications
 	use 'rcarriga/nvim-notify'
@@ -72,6 +79,8 @@ return require('packer').startup(function(use)
 		requires = {{'nvim-lua/plenary.nvim'}}
 	}
 
+	use 'voldikss/vim-floaterm'
+
 	-- Ranger
 	-- use 'francoiscabrol/ranger.vim'
 	-- use 'rbgrouleff/bclose.vim'
@@ -91,30 +100,29 @@ return require('packer').startup(function(use)
     --     end
 	-- }
 
-	-- CMP
-	use({
-        "hrsh7th/nvim-cmp",
-        config = function()
-            require("zelzahn.plugin.cmp")
-        end,
-    })
-    use({ "hrsh7th/cmp-nvim-lsp", ft = lspfiletypes })
-    use({ "hrsh7th/cmp-buffer" })
-    -- use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
-    -- use({ "hrsh7th/cmp-cmdline", after = "nvim-cmp" })
-    use({ "hrsh7th/cmp-nvim-lsp-signature-help" })
-    use({ "saadparwaiz1/cmp_luasnip" })
-    use("onsails/lspkind-nvim")	
-
-	-- Snippets
-	use({
-        "L3MON4D3/LuaSnip"
-        -- config = function()
-        --     require("lars-vc.plugins.luasnip")
-        -- end,
-    })
-    use({ "rafamadriz/friendly-snippets" })	
 	
+	-- Autocompletion framework
+	use("hrsh7th/nvim-cmp")
+  	use({
+  	  -- cmp LSP completion
+  	  "hrsh7th/cmp-nvim-lsp",
+  	  -- cmp Snippet completion
+  	  "hrsh7th/cmp-vsnip",
+  	  -- cmp Path completion
+  	  "hrsh7th/cmp-path",
+  	  "hrsh7th/cmp-buffer",
+	  "hrsh7th/cmp-nvim-lua",
+	  "hrsh7th/cmp-nvim-lsp-signature-help",
+  	  after = { "hrsh7th/nvim-cmp" },
+  	  requires = { "hrsh7th/nvim-cmp" },
+  	})
+  	-- See hrsh7th other plugins for more great completion sources!
+  	-- Snippet engine
+  	use('hrsh7th/vim-vsnip')	
+
+	-- Adds extra functionality over rust analyzer
+	use("simrat39/rust-tools.nvim")
+
     if packer_bootstrap then
        require('packer').sync()
      end
