@@ -107,6 +107,11 @@ _G.packer_plugins = {
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["elixir-tools.nvim"] = {
+    loaded = true,
+    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/elixir-tools.nvim",
+    url = "https://github.com/elixir-tools/elixir-tools.nvim"
+  },
   fd = {
     loaded = true,
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/fd",
@@ -164,11 +169,6 @@ _G.packer_plugins = {
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
-  ["onedark.vim"] = {
-    loaded = true,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/onedark.vim",
-    url = "https://github.com/joshdick/onedark.vim"
-  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -199,11 +199,6 @@ _G.packer_plugins = {
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
-  ["vim-elixir"] = {
-    loaded = true,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/vim-elixir",
-    url = "https://github.com/elixir-editors/vim-elixir"
-  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/vim-fugitive",
@@ -218,11 +213,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/vim-markdown",
     url = "https://github.com/plasticboy/vim-markdown"
-  },
-  ["vim-mix-format"] = {
-    loaded = true,
-    path = "/home/zelzahn/.local/share/nvim/site/pack/packer/start/vim-mix-format",
-    url = "https://github.com/mhinz/vim-mix-format"
   },
   ["vim-polyglot"] = {
     loaded = true,
@@ -242,24 +232,24 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\29zelzahn.plugin.lspconfig\frequire\0", "config", "nvim-lspconfig")
-time([[Config for nvim-lspconfig]], false)
 -- Config for: nvim-cmp
 time([[Config for nvim-cmp]], true)
 try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23zelzahn.plugin.cmp\frequire\0", "config", "nvim-cmp")
 time([[Config for nvim-cmp]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\29zelzahn.plugin.lspconfig\frequire\0", "config", "nvim-lspconfig")
+time([[Config for nvim-lspconfig]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType rust ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "rust" }, _G.packer_plugins)]]
-vim.cmd [[au FileType python ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "python" }, _G.packer_plugins)]]
-vim.cmd [[au FileType elixir ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "elixir" }, _G.packer_plugins)]]
 vim.cmd [[au FileType c ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "c" }, _G.packer_plugins)]]
+vim.cmd [[au FileType rust ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "rust" }, _G.packer_plugins)]]
 vim.cmd [[au FileType lua ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "lua" }, _G.packer_plugins)]]
+vim.cmd [[au FileType elixir ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "elixir" }, _G.packer_plugins)]]
 vim.cmd [[au FileType cpp ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "cpp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType python ++once lua require("packer.load")({'cmp-nvim-lsp'}, { ft = "python" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 

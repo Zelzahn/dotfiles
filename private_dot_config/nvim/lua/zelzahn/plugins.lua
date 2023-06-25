@@ -18,6 +18,9 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	-- Plugins
+	-- Fancy notifications
+	use 'rcarriga/nvim-notify'
+
 	-- Focused vim mode
 	use 'junegunn/goyo.vim'
 	use 'junegunn/limelight.vim'
@@ -32,7 +35,6 @@ return require('packer').startup(function(use)
 	})
 
 	-- Coloring
-	use 'joshdick/onedark.vim'
 	use { 'catppuccin/nvim', as ='catppuccin' }
 	use 'sheerun/vim-polyglot'
 
@@ -40,8 +42,12 @@ return require('packer').startup(function(use)
 	use 'itchyny/lightline.vim'
 
 	-- Elixir
-	use 'elixir-editors/vim-elixir'
-	use 'mhinz/vim-mix-format'
+	-- use 'elixir-editors/vim-elixir'
+	-- use 'mhinz/vim-mix-format'
+	use { 
+		"elixir-tools/elixir-tools.nvim", tag = "stable",
+		requires = { "nvim-lua/plenary.nvim" }
+	}
 
 	-- Smooth scrolling for Ctrl+D and Ctrl+F
 	use 'psliwka/vim-smoothie'
