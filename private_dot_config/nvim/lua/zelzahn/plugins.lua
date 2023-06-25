@@ -18,6 +18,14 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	-- Plugins
+	-- Easily manage editor tooling
+	use {
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+  		"neovim/nvim-lspconfig",
+    	run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+	}
+
 	-- Fancy notifications
 	use 'rcarriga/nvim-notify'
 
@@ -76,12 +84,12 @@ return require('packer').startup(function(use)
 	use 'nvim-tree/nvim-web-devicons'
 
 	-- LSP
-	use {
-		'neovim/nvim-lspconfig',
-        config = function()
-          require("zelzahn.plugin.lspconfig")
-        end
-	}
+	-- use {
+	-- 	'neovim/nvim-lspconfig',
+    --     config = function()
+    --       require("zelzahn.plugin.lspconfig")
+    --     end
+	-- }
 
 	-- CMP
 	use({

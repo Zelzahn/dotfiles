@@ -15,3 +15,8 @@ vim.g["rnvimr_enable_picker"] = 1 -- Make Ranger to be hidden after picking a fi
 
 -- Set notify as the default notification manager
 vim.notify = require("notify")
+
+require("mason").setup()
+require("mason-lspconfig").setup {
+	ensure_installed = { "elixirls" },
+}
