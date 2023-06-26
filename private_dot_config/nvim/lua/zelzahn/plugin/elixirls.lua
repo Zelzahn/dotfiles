@@ -38,9 +38,9 @@ elixir.setup {
     -- default settings, use the `settings` function to override settings
     settings = elixirls.settings {
       dialyzerEnabled = true,
-      fetchDeps = false,
+      fetchDeps = true,
       enableTestLenses = false,
-      suggestSpecs = false,
+      suggestSpecs = true,
     },
     on_attach = function(client, bufnr)
       local bufopts = { noremap = true, silent = true, buffer = bufnr }

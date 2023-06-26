@@ -16,11 +16,6 @@ vim.g["rnvimr_enable_picker"] = 1 -- Make Ranger to be hidden after picking a fi
 -- Set notify as the default notification manager
 vim.notify = require("notify")
 
-require("mason").setup()
-require("mason-lspconfig").setup {
-	ensure_installed = { "elixirls" },
-}
-
 -- Set completeopt to have a better completion experience
 -- :help completeopt
 -- menuone: popup even when there's only one match
@@ -31,4 +26,5 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 -- Avoid showing extra messages when using completion
 vim.opt.shortmess = vim.opt.shortmess + "c"
 
+require("Comment").setup()
 

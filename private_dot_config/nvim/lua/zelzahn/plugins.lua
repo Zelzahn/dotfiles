@@ -18,12 +18,13 @@ return require('packer').startup(function(use)
 
 	-- Plugins
 	-- Easily manage editor tooling
-	use {
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-  		"neovim/nvim-lspconfig",
-    	run = ":MasonUpdate" -- :MasonUpdate updates registry contents
-	}
+	-- use {
+	-- 	"williamboman/mason.nvim",
+	-- 	"williamboman/mason-lspconfig.nvim",
+  	-- 	"neovim/nvim-lspconfig",
+    -- 	run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+	-- }
+	
 	-- Visualize lsp progress
 	use({
 	  "j-hui/fidget.nvim",
@@ -92,17 +93,38 @@ return require('packer').startup(function(use)
 	-- File icons
 	use 'nvim-tree/nvim-web-devicons'
 
-	-- LSP
-	-- use {
-	-- 	'neovim/nvim-lspconfig',
-    --     config = function()
-    --       require("zelzahn.plugin.lspconfig")
-    --     end
-	-- }
+	-- Better folding
+	use {
+		'kevinhwang91/nvim-ufo', 
+		requires = 'kevinhwang91/promise-async',
+		config =  function()
+		   require("zelzahn.plugin.ufo")
+		end
+	}
 
-	
+	-- LSP
+	use {
+		'neovim/nvim-lspconfig',
+        config = function()
+          require("zelzahn.plugin.lspconfig")
+        end
+	}
+
+	-- Commenting
+	use({"numToStr/Comment.nvim"})
+
+   use {
+		"windwp/nvim-autopairs",
+    	config = function() require("nvim-autopairs").setup {} end
+	} 
 	-- Autocompletion framework
-	use("hrsh7th/nvim-cmp")
+	use({
+		"hrsh7th/nvim-cmp",
+		-- after = "nvim-autopairs",
+		config = function()
+			require("zelzahn.plugin.cmp")
+		end,
+	})
   	use({
   	  -- cmp LSP completion
   	  "hrsh7th/cmp-nvim-lsp",
@@ -119,9 +141,7 @@ return require('packer').startup(function(use)
   	-- See hrsh7th other plugins for more great completion sources!
   	-- Snippet engine
   	use('hrsh7th/vim-vsnip')	
-
-	-- Adds extra functionality over rust analyzer
-	use("simrat39/rust-tools.nvim")
+	use({ "onsails/lspkind-nvim" })
 
     if packer_bootstrap then
        require('packer').sync()
