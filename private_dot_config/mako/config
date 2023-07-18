@@ -1,0 +1,40 @@
+sort=-time
+layer=overlay
+width=400
+border-size=2
+border-radius=6
+icons=1
+max-icon-size=30
+max-visible=7
+icon-path=/usr/share/icons/bloom-dark
+default-timeout=2500
+ignore-timeout=0
+font=Poppins 12
+text-alignment=center
+padding=10
+margin=0
+outer-margin=10,0,0,0
+anchor=top-center
+background-color=#24273a
+text-color=#cad3f5
+border-color=#8aadf4
+progress-color=over #363a4f
+
+[urgency=high]
+border-color=#f5a97f
+
+[urgency=critical]
+# border-color=#BB1122
+anchor=center
+border-size=3
+default-timeout=5000
+
+[urgency=low]
+border-size=2
+# border-color=#03a7ff
+anchor=bottom-center
+outer-margin=10,0,50,0
+
+[mode=do-not-disturb]
+invisible=1
+

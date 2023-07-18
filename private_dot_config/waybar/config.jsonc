@@ -1,0 +1,99 @@
+{
+  "layer": "top",
+  "position": "top",
+  /*"mode": "dock",*/
+  "height": 0,
+  "modules-left": [
+    "wlr/workspaces"
+  ],
+  "modules-right": [
+    "tray",
+    "backlight",
+    "battery",
+    "network",
+    "cpu",
+    "memory",
+    "pulseaudio",
+    "clock"
+  ],
+  "wlr/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": false,
+    "on-click": "activate",
+    "format": "{icon}",
+    "sort-by-number": true,
+    "format-icons": {
+      "1": "󰨇",
+      "2": "󰖟",
+      "3": "",
+      "4": "",
+      "5": "󰙯",
+      "urgent": "",
+      "default": ""
+    },
+    "persistent_workspaces": {
+      "1":["DP-1"],
+      "2": ["eDP-1"],
+      "3": ["DP-1"],
+      "4": ["eDP-1"],
+      "5": ["DP-1"]
+    }
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", ""]
+  },
+  "battery": {
+    "bat": "BAT0",
+    "interval": 60,
+    "states": {
+        "warning": 30,
+        "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 5
+  },
+  "cpu": {
+    "format": "   {usage}%",
+    "tooltip": true,
+    "on-click": "kitty -T btop --hold sh -c 'btop'"
+  },
+  "memory": {
+    "format": "{percentage}%  󰆼",
+    "interval": 10
+  },
+  "clock": {
+    "format": "{:%H:%M  %a %d %B}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+//    "on-click": "alacritty -t clock -e tty-clock -sb -C 4 & sleep 1.5 && pkill clock",
+//    "on-click-right": "$HOME/.config/waybar/scripts/wallpaper.sh"
+  },
+  "network": {
+    "format-wifi": "  {essid} ",
+    "format-ethernet": "󰈀   {ifname}",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "! Disconnected",
+    "tooltip-format-wifi": "{signalStrength}% | ⬇ {bandwidthDownBits} ⬆ {bandwidthUpBits} | {ipaddr}/{cidr}",
+//  "on-click": "alacritty -t nmtui -e nmtui"
+  },
+  "pulseaudio": {
+    "format": "{icon}  {volume}",
+    "format-bluetooth": "󰂰 {volume}",
+    "format-muted": "󰝟",
+    "on-click-right": "pavucontrol",
+    "scroll-step": 1,
+    "format-icons": {
+      "default": [
+	"󰕿",
+	"󰖀",
+	"󰕾"
+      ]
+    }
+  }
+}
