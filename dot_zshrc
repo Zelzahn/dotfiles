@@ -128,12 +128,11 @@ source $ZSH/oh-my-zsh.sh
 # Because I frequently mistype this
 alias exti=exit
 alias vi=nvim
+alias icat="kitten icat"
+
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# asdf config
-. /opt/asdf-vm/asdf.sh
 
 # Point python executable to python3
 alias python=python3
@@ -163,7 +162,7 @@ zinit light aikow/zsh-auto-ls
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-PATH="/home/zelzahn/perl5/bin:/home/zelzahn/.ghcup/bin${PATH:+:${PATH}}"; export PATH;
+PATH="$(go env GOPATH)/bin:/home/zelzahn/go/bin:/home/zelzahn/.cargo/bin:/home/zelzahn/.ghcup/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/zelzahn/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/zelzahn/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/zelzahn/perl5\""; export PERL_MB_OPT;
@@ -171,3 +170,4 @@ PERL_MM_OPT="INSTALL_BASE=/home/zelzahn/perl5"; export PERL_MM_OPT;
 
 eval "$(oh-my-posh init zsh --config /home/zelzahn/.config/omp/catppuccin_macchiato.omp.json)"
 
+eval "$(rtx activate zsh)"

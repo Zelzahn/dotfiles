@@ -52,6 +52,40 @@ lspconf["rust_analyzer"].setup({
 lspconf["elixirls"].setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    settings = ({ suggestSpecs = true }),
     cmd = { "/home/zelzahn/.config/ls/elixir-ls/language_server.sh" }
+})
+
+lspconf["gopls"].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+lspconf["typst_lsp"].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+lspconf["ccls"].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+lspconf['ltex'].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "ltex-ls" },
+  filetypes = { "markdown", "text", "tex" },
+  flags = { debounce_text_changes = 300 },
+  settings ={
+      ltex = {
+        language='auto',
+        languageToolHttpServerUri='https://api.languagetoolplus.com/',
+        languageToolOrg = {
+          username='friedrich@friedrichvdb.be',
+          apiKey = 'pit-sVtMrkq4AfwY',
+        }
+      }
+    }
 })
 

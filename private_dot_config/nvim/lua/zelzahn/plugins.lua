@@ -143,6 +143,9 @@ return require('packer').startup(function(use)
   	use('hrsh7th/vim-vsnip')	
 	use({ "onsails/lspkind-nvim" })
 
+	-- Typst syntax highlighting and file recognition
+    use {'kaarmu/typst.vim', ft = {'typst'}}
+
     if packer_bootstrap then
        require('packer').sync()
      end
