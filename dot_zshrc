@@ -138,6 +138,17 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 alias python=python3
 alias pip=pip3
 
+# Handy change dir shortcuts
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
+
+# Lsd aliases
+alias ls='lsd'
+alias ll='ls -la'
+
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # Autojump
@@ -162,6 +173,10 @@ zinit light aikow/zsh-auto-ls
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Ruby setup
+export GEM_HOME="$(gem env user_gemhome)"
+export PATH="$PATH:$GEM_HOME/bin"
+
 PATH="$(go env GOPATH)/bin:/home/zelzahn/go/bin:/home/zelzahn/.cargo/bin:/home/zelzahn/.ghcup/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/zelzahn/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/zelzahn/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
@@ -170,4 +185,9 @@ PERL_MM_OPT="INSTALL_BASE=/home/zelzahn/perl5"; export PERL_MM_OPT;
 
 eval "$(oh-my-posh init zsh --config /home/zelzahn/.config/omp/catppuccin_macchiato.omp.json)"
 
-eval "$(rtx activate zsh)"
+eval "$(mise activate zsh)"
+. "$HOME/.cargo/env"
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"
